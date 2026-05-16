@@ -24,19 +24,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Curseur personnalisé (option chic) */
-        .custom-cursor {
-            width: 8px;
-            height: 8px;
-            background: #C2A27F;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s, width 0.2s, height 0.2s;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
+        /* MODIF : curseur personnalisé supprimé (lignes 30-45 retirées) */
 
         /* Typographie */
         h1, h2, h3, .logo {
@@ -335,7 +323,7 @@
     </style>
 </head>
 <body>
-<div class="custom-cursor"></div>
+<!-- MODIF : plus de curseur personnalisé -->
 
 <nav class="navbar">
     <a href="#home" class="logo">L&I — Studio</a>
@@ -391,9 +379,7 @@
         <div class="section-sub">Ils parlent de nous</div>
         <h2 class="section-title">Avis clients</h2>
         <div class="divider"></div>
-        <div class="testimonial-slider" id="testimonialSlider">
-            <!-- généré en JS -->
-        </div>
+        <div class="testimonial-slider" id="testimonialSlider"></div>
     </div>
 </section>
 
@@ -429,13 +415,13 @@
 </footer>
 
 <script>
-    // Données galerie (cats: portrait, mariage, paysage)
+    // MODIF : nouvelles URLs d'images (valides) - lignes ~190 à 195
     const galleryData = [
         { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e4d?w=600', cat: 'portrait', alt: 'Portrait élégant' },
         { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600', cat: 'mariage', alt: 'Mariage romantique' },
         { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600', cat: 'paysage', alt: 'Paysage montagne' },
         { src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600', cat: 'portrait', alt: 'Portrait femme' },
-        { src: 'https://images.unsplash.com/photo-1532712939222-7b1b25ce6598?w=600', cat: 'mariage', alt: 'Mariage en extérieur' },
+        { src: 'https://images.unsplash.com/photo-1552371522-8f9c58ce7e3c?w=600', cat: 'mariage', alt: 'Mariage en extérieur' },   // MODIF : image 5 corrigée
         { src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3f7fe05?w=600', cat: 'paysage', alt: 'Forêt brumeuse' }
     ];
 
@@ -555,15 +541,6 @@
         el.classList.add('fade-in');
         appearOnScroll.observe(el);
     });
-
-    // Curseur personnalisé
-    const cursor = document.querySelector('.custom-cursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
 </script>
 </body>
 </html>
