@@ -3,263 +3,567 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Barber Elite - Site multi-pages intégré</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Lumière & Instant | Photographie d'art</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Leaflet pour la carte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background: #0a0a0f;
+            background: #FCF9F6;
             font-family: 'Inter', sans-serif;
-            color: #fefefa;
+            color: #2C2B2A;
             line-height: 1.5;
+            scroll-behavior: smooth;
         }
+
+        /* Curseur personnalisé (option chic) */
+        .custom-cursor {
+            width: 8px;
+            height: 8px;
+            background: #C2A27F;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s, width 0.2s, height 0.2s;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        /* Typographie */
+        h1, h2, h3, .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
         /* Navigation */
         .navbar {
-            position: sticky;
+            position: fixed;
             top: 0;
-            background: rgba(10,10,15,0.9);
+            left: 0;
+            width: 100%;
+            background: rgba(252, 249, 246, 0.92);
             backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
             flex-wrap: wrap;
-            z-index: 100;
-            border-bottom: 1px solid rgba(200,169,110,0.2);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            color: #2C2B2A;
+            text-decoration: none;
             font-weight: 600;
-            color: #c8a96e;
         }
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
-        .nav-links button {
-            background: none;
-            border: none;
-            font-size: 1rem;
+        .nav-links a {
+            text-decoration: none;
+            color: #2C2B2A;
             font-weight: 500;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-            padding: 0.5rem 0;
+            transition: 0.2s;
         }
-        .nav-links button:hover {
-            color: #c8a96e;
-        }
+        .nav-links a:hover { color: #C2A27F; }
         .burger {
             display: none;
             font-size: 1.6rem;
             cursor: pointer;
         }
-        /* Conteneur des pages */
-        .page {
-            display: none;
-            padding: 3rem 2rem;
-            animation: fade 0.3s ease;
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(252,249,246,0.9), rgba(240,235,228,0.9)), url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1600');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
-        .page.active {
-            display: block;
-        }
-        @keyframes fade {
-            from { opacity: 0; transform: translateY(10px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+        .hero h1 {
+            font-size: 4rem;
             margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #5A4A3A;
+        }
+        .btn {
+            display: inline-block;
+            background: #2C2B2A;
+            color: #FCF9F6;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #C2A27F;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
         }
         .section-title {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
-        .services-grid, .gallery-grid {
+        .section-sub {
+            text-align: center;
+            color: #C2A27F;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+        }
+        .divider {
+            width: 70px;
+            height: 2px;
+            background: #C2A27F;
+            margin: 1rem auto 3rem;
+        }
+
+        /* Filtres galerie */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #2C2B2A;
+            color: white;
+            border-color: #2C2B2A;
+        }
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #f0ede8;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .close-lb {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Témoignages slider */
+        .testimonial-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1.5rem;
+            padding-bottom: 1rem;
+            scrollbar-width: thin;
+        }
+        .testimonial-card {
+            flex: 0 0 380px;
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            scroll-snap-align: start;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .testimonial-card i.fa-star { color: #C2A27F; }
+
+        /* Prestations */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 2rem;
         }
         .service-card {
-            background: #14141a;
-            border-radius: 24px;
+            background: white;
+            border-radius: 28px;
             padding: 2rem;
             text-align: center;
-            border: 1px solid rgba(200,169,110,0.2);
+            transition: 0.2s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
         }
         .service-card i {
-            font-size: 2.5rem;
-            color: #c8a96e;
+            font-size: 2rem;
+            color: #C2A27F;
+            margin-bottom: 1rem;
         }
         .price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #c8a96e;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2C2B2A;
             margin-top: 1rem;
         }
-        .gallery-grid img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-        .contact-info {
+
+        /* Contact & carte */
+        .contact-flex {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 3rem;
         }
-        .map {
-            height: 250px;
-            background: #2c2c36;
-            border-radius: 20px;
+        .contact-info p {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
+        .contact-info i {
+            width: 1.8rem;
+            color: #C2A27F;
+        }
+        #map {
+            height: 300px;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.9rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e0dbd5;
+            border-radius: 28px;
+            background: white;
+            font-family: inherit;
+        }
+        .contact-form button {
+            width: 100%;
+        }
+
         footer {
+            background: #2C2B2A;
+            color: #ccc;
             text-align: center;
             padding: 2rem;
-            border-top: 1px solid rgba(200,169,110,0.2);
-            margin-top: 2rem;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
             .nav-links {
                 display: none;
                 width: 100%;
                 flex-direction: column;
                 text-align: center;
                 gap: 1rem;
-                margin-top: 1rem;
+                padding: 1rem 0;
             }
-            .nav-links.active {
-                display: flex;
-            }
-            .burger {
-                display: block;
-            }
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
+            .nav-links.active { display: flex; }
+            .burger { display: block; }
+            .hero h1 { font-size: 2.5rem; }
+            .contact-flex { grid-template-columns: 1fr; }
+            .testimonial-card { flex: 0 0 280px; }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">✦ BARBER ELITE ✦</div>
-        <ul class="nav-links">
-            <li><button data-page="accueil">Accueil</button></li>
-            <li><button data-page="services">Services</button></li>
-            <li><button data-page="galerie">Galerie</button></li>
-            <li><button data-page="contact">Contact</button></li>
-        </ul>
-        <div class="burger">☰</div>
-    </nav>
+<div class="custom-cursor"></div>
 
-    <!-- Page Accueil -->
-    <div id="accueil" class="page active">
-        <div class="container" style="text-align: center; padding: 4rem 2rem;">
-            <h1>Barber Elite</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">L'art de la coupe et du soin, au cœur de Paris</p>
-            <button data-page="services" class="btn-primary" style="background:#c8a96e; color:#0a0a0f; padding:0.8rem 2rem; border:none; border-radius:40px; font-weight:bold; cursor:pointer;">Découvrir nos prestations</button>
+<nav class="navbar">
+    <a href="#home" class="logo">L&I — Studio</a>
+    <ul class="nav-links">
+        <li><a href="#home">Accueil</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#services">Prestations</a></li>
+        <li><a href="#temoignages">Avis</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="burger">☰</div>
+</nav>
+
+<section id="home" class="hero">
+    <div>
+        <h1>Lumière & Instant</h1>
+        <p>Photographie artistique — Émotions, authenticité, esthétique</p>
+        <a href="#galerie" class="btn">Voir le portfolio</a>
+    </div>
+</section>
+
+<section id="galerie">
+    <div class="container">
+        <div class="section-sub">Portfolio</div>
+        <h2 class="section-title">Dernières réalisations</h2>
+        <div class="divider"></div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="portrait">Portrait</button>
+            <button class="filter-btn" data-filter="mariage">Mariage</button>
+            <button class="filter-btn" data-filter="paysage">Paysage</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+</section>
+
+<section id="services">
+    <div class="container">
+        <div class="section-sub">Tarifs</div>
+        <h2 class="section-title">Prestations sur mesure</h2>
+        <div class="divider"></div>
+        <div class="services-grid">
+            <div class="service-card"><i class="fas fa-camera-retro"></i><h3>Shooting portrait</h3><p>1h30, 10 retouchées, droits d'image inclus.</p><div class="price">290€</div></div>
+            <div class="service-card"><i class="fas fa-heart"></i><h3>Reportage mariage</h3><p>8h de couverture, galerie privée, 350+ clichés.</p><div class="price">1450€</div></div>
+            <div class="service-card"><i class="fas fa-mountain"></i><h3>Session nature</h3><p>Lieu extérieur, 2h, 20 photos retouchées.</p><div class="price">390€</div></div>
+            <div class="service-card"><i class="fas fa-box"></i><h3>Pack naissance</h3><p>À domicile, 1h30, album numérique.</p><div class="price">280€</div></div>
         </div>
     </div>
+</section>
 
-    <!-- Page Services -->
-    <div id="services" class="page">
-        <div class="container">
-            <h2 class="section-title">Nos prestations</h2>
-            <div class="services-grid">
-                <div class="service-card"><i class="fas fa-cut"></i><h3>Coupe homme</h3><p>Shampoing, coupe et coiffage.</p><div class="price">29€</div></div>
-                <div class="service-card"><i class="fas fa-beard"></i><h3>Taille de barbe</h3><p>Serviette chaude et soin.</p><div class="price">22€</div></div>
-                <div class="service-card"><i class="fas fa-hand-sparkles"></i><h3>Coupe + Barbe</h3><p>Duo complet.</p><div class="price">45€</div></div>
-                <div class="service-card"><i class="fas fa-spa"></i><h3>Soin crânien</h3><p>Massage et hydratation.</p><div class="price">35€</div></div>
-            </div>
+<section id="temoignages">
+    <div class="container">
+        <div class="section-sub">Ils parlent de nous</div>
+        <h2 class="section-title">Avis clients</h2>
+        <div class="divider"></div>
+        <div class="testimonial-slider" id="testimonialSlider">
+            <!-- généré en JS -->
         </div>
     </div>
+</section>
 
-    <!-- Page Galerie -->
-    <div id="galerie" class="page">
-        <div class="container">
-            <h2 class="section-title">Nos réalisations</h2>
-            <div class="gallery-grid">
-                <img src="https://images.unsplash.com/photo-1585747860714-2ba6c120c2c9?w=600" alt="Coupe">
-                <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600" alt="Barbe">
-                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600" alt="Salon">
-                <img src="https://images.unsplash.com/photo-1582653291997-079a1c04e5a1?w=600" alt="Soin">
-            </div>
-        </div>
-    </div>
-
-    <!-- Page Contact -->
-    <div id="contact" class="page">
-        <div class="container">
-            <h2 class="section-title">Nous trouver</h2>
+<section id="contact">
+    <div class="container">
+        <div class="section-sub">Parlons de votre projet</div>
+        <h2 class="section-title">Contactez-moi</h2>
+        <div class="divider"></div>
+        <div class="contact-flex">
             <div class="contact-info">
-                <div>
-                    <p><i class="fas fa-map-marker-alt"></i> 12 rue de la Roquette, 75011 Paris</p>
-                    <p><i class="fas fa-clock"></i> Mar - Sam : 10h-19h</p>
-                    <p><i class="fas fa-phone"></i> 01 23 45 67 89</p>
-                    <p><i class="fas fa-envelope"></i> contact@barberelite.fr</p>
-                </div>
-                <div class="map" id="map"></div>
+                <p><i class="fas fa-map-pin"></i> 24 rue du Faubourg, 75011 Paris</p>
+                <p><i class="fas fa-phone-alt"></i> +33 6 12 34 56 78</p>
+                <p><i class="fas fa-envelope"></i> hello@lumieredinstant.com</p>
+                <p><i class="fab fa-instagram"></i> @lumieredinstant</p>
             </div>
+            <div id="map"></div>
+        </div>
+        <div class="contact-form" style="margin-top: 2rem;">
+            <h3>Une question ?</h3>
+            <form id="contactForm" action="https://formspree.io/f/xgejvvzz" method="POST">
+                <input type="text" name="name" placeholder="Votre nom" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="3" placeholder="Votre message..."></textarea>
+                <button type="submit" class="btn">Envoyer <i class="fas fa-paper-plane"></i></button>
+                <p id="formStatus" style="margin-top: 0.5rem; font-size: 0.8rem;"></p>
+            </form>
         </div>
     </div>
+</section>
 
-    <footer>
-        <p>© 2026 Barber Elite – Tous droits réservés</p>
-    </footer>
+<footer>
+    <p>© 2026 Lumière & Instant – Photographie d'auteur</p>
+</footer>
 
-    <script>
-        // Menu burger
-        const burger = document.querySelector('.burger');
-        const navLinks = document.querySelector('.nav-links');
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+<script>
+    // Données galerie (cats: portrait, mariage, paysage)
+    const galleryData = [
+        { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e4d?w=600', cat: 'portrait', alt: 'Portrait élégant' },
+        { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600', cat: 'mariage', alt: 'Mariage romantique' },
+        { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600', cat: 'paysage', alt: 'Paysage montagne' },
+        { src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600', cat: 'portrait', alt: 'Portrait femme' },
+        { src: 'https://images.unsplash.com/photo-1532712939222-7b1b25ce6598?w=600', cat: 'mariage', alt: 'Mariage en extérieur' },
+        { src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3f7fe05?w=600', cat: 'paysage', alt: 'Forêt brumeuse' }
+    ];
+
+    // Génération galerie
+    const galleryGrid = document.getElementById('galleryGrid');
+    function renderGallery(filter = 'all') {
+        galleryGrid.innerHTML = '';
+        const filtered = filter === 'all' ? galleryData : galleryData.filter(item => item.cat === filter);
+        filtered.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `<img src="${item.src}" alt="${item.alt}" loading="lazy">`;
+            div.addEventListener('click', () => openLightbox(item.src));
+            galleryGrid.appendChild(div);
         });
+    }
+    renderGallery();
 
-        // Changement de page
-        const pages = document.querySelectorAll('.page');
-        const navButtons = document.querySelectorAll('[data-page]');
+    // Filtres
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGallery(btn.getAttribute('data-filter'));
+        });
+    });
 
-        function showPage(pageId) {
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            navLinks.classList.remove('active'); // fermer le menu mobile
+    // Lightbox
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = '<span class="close-lb">&times;</span><img src="" alt="Lightbox">';
+    document.body.appendChild(lightbox);
+    const lightboxImg = lightbox.querySelector('img');
+    function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.style.display = 'flex';
+    }
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('close-lb')) {
+            lightbox.style.display = 'none';
         }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.style.display === 'flex') lightbox.style.display = 'none';
+    });
 
-        navButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const pageId = btn.getAttribute('data-page');
-                showPage(pageId);
-            });
+    // Témoignages
+    const testimonials = [
+        { text: "Une photographe d'exception ! Elle a capturé l'essence de notre mariage avec une sensibilité rare.", author: "Claire & Thomas", stars: 5 },
+        { text: "Portrait professionnel parfait, les retouches sont naturelles, je recommande vivement.", author: "Sarah M.", stars: 5 },
+        { text: "Séance nature en montagne, des clichés à couper le souffle. Merci pour ce moment.", author: "Léo B.", stars: 5 }
+    ];
+    const slider = document.getElementById('testimonialSlider');
+    testimonials.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'testimonial-card';
+        let stars = '';
+        for(let i=0;i<t.stars;i++) stars += '<i class="fas fa-star"></i>';
+        card.innerHTML = `<div class="stars">${stars}</div><p>“${t.text}”</p><h4>— ${t.author}</h4>`;
+        slider.appendChild(card);
+    });
+
+    // Carte Leaflet
+    const mapLink = document.createElement('link');
+    mapLink.rel = 'stylesheet';
+    mapLink.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(mapLink);
+    const mapScript = document.createElement('script');
+    mapScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    mapScript.onload = () => {
+        const map = L.map('map').setView([48.8566, 2.3742], 14);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+        }).addTo(map);
+        L.marker([48.8566, 2.3742]).addTo(map).bindPopup('Lumière & Instant<br>24 rue du Faubourg, Paris');
+    };
+    document.head.appendChild(mapScript);
+
+    // Formulaire (Formspree)
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            try {
+                const response = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+                if (response.ok) {
+                    status.textContent = '✅ Message envoyé !';
+                    status.style.color = '#2C2B2A';
+                    form.reset();
+                } else {
+                    status.textContent = '❌ Erreur, réessayez.';
+                }
+            } catch(err) {
+                status.textContent = '❌ Erreur réseau.';
+            }
         });
+    }
 
-        // Carte Leaflet (uniquement pour la page contact)
-        const mapLink = document.createElement('link');
-        mapLink.rel = 'stylesheet';
-        mapLink.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-        document.head.appendChild(mapLink);
-        const mapScript = document.createElement('script');
-        mapScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-        mapScript.onload = () => {
-            const map = L.map('map').setView([48.8566, 2.3779], 15);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
-            }).addTo(map);
-            L.marker([48.8566, 2.3779]).addTo(map).bindPopup('Barber Elite');
-        };
-        document.head.appendChild(mapScript);
-    </script>
+    // Burger menu
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    burger.addEventListener('click', () => nav.classList.toggle('active'));
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => nav.classList.remove('active')));
+
+    // Animations au scroll (fade-in)
+    const faders = document.querySelectorAll('.service-card, .gallery-item, .testimonial-card, .contact-flex > div');
+    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const appearOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, appearOptions);
+    faders.forEach(el => {
+        el.classList.add('fade-in');
+        appearOnScroll.observe(el);
+    });
+
+    // Curseur personnalisé
+    const cursor = document.querySelector('.custom-cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+</script>
 </body>
 </html>
