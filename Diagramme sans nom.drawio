@@ -1,41 +1,47 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="KjL3Jf2pTrZvl7nIA3Gb">
-    <mxGraphModel dx="1075" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1323" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="ewuU6nFOF1Vrq-148a4O-3" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="&lt;font style=&quot;font-size: 21px;&quot;&gt;Ceci est la listBox&lt;/font&gt;" vertex="1">
-          <mxGeometry height="320" width="320" x="450" y="195" as="geometry" />
+        <mxCell id="ewuU6nFOF1Vrq-148a4O-3" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="&lt;font style=&quot;font-size: 21px;&quot;&gt;Ceci est l&#39;inventaire&lt;/font&gt;" vertex="1">
+          <mxGeometry height="280" width="280" x="490" y="200" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="60" width="120" x="450" y="45" as="geometry" />
+          <mxGeometry height="60" width="120" x="260" y="30" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="60" width="120" x="650" y="45" as="geometry" />
+          <mxGeometry height="60" width="120" x="460" y="30" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=13;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Produit:&lt;/font&gt;" vertex="1">
-          <mxGeometry height="30" width="60" x="480" y="5" as="geometry" />
+          <mxGeometry height="30" width="60" x="290" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=14;" value="Prix:" vertex="1">
-          <mxGeometry height="30" width="60" x="680" y="5" as="geometry" />
+          <mxGeometry height="30" width="60" x="490" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Supprimer&lt;/font&gt;" vertex="1">
-          <mxGeometry height="40" width="120" x="650" y="130" as="geometry" />
+          <mxGeometry height="40" width="120" x="460" y="130" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="40" width="170" x="597.5" y="545" as="geometry" />
+          <mxGeometry height="40" width="170" x="407.5" y="545" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Rechercher&lt;/font&gt;" vertex="1">
-          <mxGeometry height="40" width="130" x="450" y="545" as="geometry" />
+          <mxGeometry height="40" width="130" x="260" y="545" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-17" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Tapez votre recherche:&lt;/font&gt;" vertex="1">
-          <mxGeometry height="20" width="150" x="597.5" y="520" as="geometry" />
+          <mxGeometry height="20" width="150" x="407.5" y="520" as="geometry" />
         </mxCell>
         <mxCell id="ewuU6nFOF1Vrq-148a4O-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Ajouter&lt;/font&gt;" vertex="1">
-          <mxGeometry height="40" width="120" x="450" y="130" as="geometry" />
+          <mxGeometry height="40" width="120" x="260" y="130" as="geometry" />
         </mxCell>
-        <mxCell id="ewuU6nFOF1Vrq-148a4O-21" edge="1" parent="1" source="ewuU6nFOF1Vrq-148a4O-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ewuU6nFOF1Vrq-148a4O-7">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="ewuU6nFOF1Vrq-148a4O-21" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="35" as="sourcePoint" />
+            <mxPoint x="320" y="35" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YbFMlbvGqDG_prUON9vA-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="&lt;font style=&quot;font-size: 21px;&quot;&gt;Ceci est la listBox&lt;/font&gt;" vertex="1">
+          <mxGeometry height="280" width="280" x="10" y="200" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
